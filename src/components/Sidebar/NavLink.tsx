@@ -1,17 +1,17 @@
 import { ReactElement } from "react"
-
+import { NavLink as RouterNavLink } from "react-router-dom"
 interface Props {
     icon: ReactElement,
     title: string,
-    to?: string,
+    to: string,
 }
 
 const NavLink = ({ icon, title, to }: Props) => {
     return (
-        <li title={to} className='nav-link nav-deselected'>
+        <RouterNavLink to={to} className={ ({ isActive }) => isActive ? 'nav-link nav-selected' : 'nav-link nav-deselected'}>
             { icon }
             <p>{title}</p>
-        </li>
+        </RouterNavLink>
     )
 }
 
