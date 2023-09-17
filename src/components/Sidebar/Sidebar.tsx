@@ -14,11 +14,11 @@ const Sidebar = () => {
                 <span className='font-medium'>mantissa</span>
             </div>
             <nav className='ml-2 mr-2'>
-                <ul>
+                <ul className='flex flex-col gap-1'>
                     {
                         navLinks.map(navLink => (
                             <>
-                                <p key={JSON.stringify(navLink)} className='text-gray-600 font-medium mb-1 mt-2'>{navLink.category}</p>
+                                <p key={JSON.stringify(navLink)} className='text-gray-600 font-medium mb-1 mt-1'>{navLink.category}</p>
                                 {
                                     navLink.links.map(link => (
                                         <NavLink key={JSON.stringify(link)} icon={link.icon} title={link.title} to={link.url} />
