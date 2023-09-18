@@ -1,5 +1,5 @@
 .nav-link {
-    @apply ml-3 flex items-center gap-2 text-xl p-2 rounded-md cursor-pointer select-none;
+    @apply ml-3 flex items-center gap-2 p-1 rounded-md cursor-pointer select-none
 }
 
 .nav-selected {
