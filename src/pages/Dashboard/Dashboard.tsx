@@ -7,15 +7,15 @@ import { AiOutlineClockCircle } from "react-icons/ai"
 import { HiStatusOnline } from "react-icons/hi"
 import { MdOutlineComputer } from "react-icons/md"
 import moment from "moment"
+import { useEffect } from "react"
 const Dashboard = () => {
 
-    interface Row {
-        id: number,
-        user: string,
-        action: string,
-        severity: string,
-        clientName: string,
-        time: Date
+    
+
+    const severityStyles = {
+        Low: "bg-green-200 text-green-700",
+        Medium: "bg-yellow-200 text-yellow-700",
+        High: "bg-red-200 text-red-700",
     }
 
     const columns: GridColDef[] = [
@@ -38,8 +38,8 @@ const Dashboard = () => {
         {
             field: "severity",
             headerName: "Severity",
-            renderCell: ({ row }) => (
-                <span className="text-green-700 bg-green-200 rounded-lg p-2">{row.severity}</span>
+            renderCell: ({ row }: { row: Row }) => (
+                <span className={`${severityStyles[row.severity]} rounded-lg p-2`}>{row.severity}</span>
             )
         },
         {
@@ -67,7 +67,16 @@ const Dashboard = () => {
         },
     ]
 
-    const rows = [
+    interface Row {
+        id: number,
+        user: string,
+        action: string,
+        severity: "Low" | "Medium" | "High",
+        clientName: string,
+        time: number
+    }
+
+    const rows: Row[] = [
         {
             id: 0,
             user: "Peter Giamalakis",
@@ -75,8 +84,28 @@ const Dashboard = () => {
             severity: "Low",
             clientName: "PC-001",
             time: Date.parse("Sep 17, 2023")
+        },
+        {
+            id: 1,
+            user: "John Doe",
+            action: "Killed process.",
+            severity: "Medium",
+            clientName: "DESKTOP-JQYH39",
+            time: Date.parse("Sep 17, 2023")
+        },
+        {
+            id: 2,
+            user: "Yiannis Hirinos",
+            action: "Installed MSI package.",
+            severity: "High",
+            clientName: "DCSRV2019",
+            time: Date.parse("Sep 17, 2023")
         }
     ]
+
+    useEffect(() => {
+        document.title = "🏠 Dashboard | mantissa"
+    }, [])
 
     return (
         <div className="px-5 w-full">
@@ -84,7 +113,7 @@ const Dashboard = () => {
                 <h1 className="text-3xl font-inter font-medium">Dashboard</h1>
             </div>
             
-            <h2 className="text-lg font-inter font-medium text-gray-700 mb-2">At a glance</h2>
+            <h2 className="font-inter font-medium text-gray-700 mb-2">At a glance</h2>
             {/* Widget container */}
             <div className="flex flex-wrap gap-2">
                 <Widget title="Clients online" value="10" className="border-green-500" icon={<FaComputer className="text-5xl" />} />
@@ -92,7 +121,7 @@ const Dashboard = () => {
                 <Widget title="Server status" value="OK" className="border-purple-600" icon={<HiStatusOnline className="text-5xl" />} />
             </div>
 
-            <h2 className="text-lg font-inter font-medium text-gray-700 mt-5 mb-2">Recent activity</h2>
+            <h2 className="font-inter font-medium text-gray-700 mt-5 mb-2">Recent activity</h2>
             <div className="w-full">
                 <DataGrid sx={{fontFamily: "Inter"}} columns={columns} rows={rows}  />
             </div>
